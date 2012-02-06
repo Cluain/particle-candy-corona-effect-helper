@@ -1,3 +1,5 @@
+ver 0.2
+
 # Installation
 
 1.  Copy lib_particle_candy.lua file to this project
@@ -6,9 +8,10 @@
 # Usage
 
 Use sliders in Settings tab to adjust Particle Type Properties and Emitter settings.
+You can adjust the background color on Test tab using sliders in Settings Two tab.
 Switch to tab Test to view your settings in action.
-Every time you switch to tab Test your settings will be printed in console.
-If you want to adjust default settings you can edit Properties table [default key] in main.lua file.
+You can adjust default settings, background settings and particle image in `configuration.lua` file.
+Every time you switch to tab Test your settings will be printed to console, in a format allowing easy copy & paste to `configuration.lua` file.
 
 # Limitations
 

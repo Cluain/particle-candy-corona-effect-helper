@@ -6,12 +6,6 @@
 -- Sample code is MIT licensed, see http://developer.anscamobile.com/code/license
 -- Copyright (C) 2010 ANSCA Inc. All Rights Reserved.
 
--- TODO
--- setvalue
--- values = { }
--- documentation
--- margins
-
 module(..., package.seeall)
 
 local function newSliderHandler( self, event )
@@ -20,10 +14,10 @@ local function newSliderHandler( self, event )
 
 --	local default = self[1]
 --	local over = self[2]
-	
+
 	-- General "onEvent" function overrides onPress and onRelease, if present
 	local onEvent = self._onEvent
-	
+
 	local onPress = self._onPress
 	local onRelease = self._onRelease
 
@@ -36,7 +30,7 @@ local function newSliderHandler( self, event )
 
 	local phase = event.phase
 	if "began" == phase then
-		if self.thumbOver then 
+		if self.thumbOver then
 			self.thumbDefault.isVisible = false
 			self.thumbOver.isVisible = true
 		end
@@ -51,7 +45,7 @@ local function newSliderHandler( self, event )
 		-- Subsequent touch events will target slider even if they are outside the stageBounds of slider
 		display.getCurrentStage():setFocus( self, event.id )
 		self.isFocus = true
-		
+
 	elseif self.isFocus then
 		local bounds = self.stageBounds
 		local oldValue = self.value
@@ -59,7 +53,7 @@ local function newSliderHandler( self, event )
 		-- find new position of thumb
 		if self.isVertical then
 			local y = event.y - self.y
-			
+
 			if y < self.thumbMin then
 				y = self.thumbMin
 			end
@@ -68,13 +62,11 @@ local function newSliderHandler( self, event )
 			end
 			self.thumbDefault.y = y
 			self.thumbOver.y = y
-        print ("thumb value: " .. y)
-			
+
 			self.value = (((y - self.thumbMin) / (self.thumbMax - self.thumbMin)) * self.range) + self.minValue
 		else
 			local x = event.x - self.x
-			
---			print("x=" .. x .. " min=" .. self.thumbMin .. " max=" .. self.thumbMax .. " " .. self.x)
+
 			if x < self.thumbMin then
 				x = self.thumbMin
 			end
@@ -102,19 +94,19 @@ local function newSliderHandler( self, event )
         end
 
 		if "moved" == phase then
-        
+
 			if self.value ~= oldValue then
 				if onEvent then
 					sliderEvent.phase = "moved"
 					result = onEvent( sliderEvent )
 				end
 			end
-		elseif "ended" == phase or "cancelled" == phase then 
-			if self.thumbOver then 
+		elseif "ended" == phase or "cancelled" == phase then
+			if self.thumbOver then
 				self.thumbDefault.isVisible = true
 				self.thumbOver.isVisible = false
 			end
-			
+
 			if "ended" == phase then
 				if onEvent then
 					sliderEvent.phase = "release"
@@ -123,7 +115,7 @@ local function newSliderHandler( self, event )
 					result = onRelease( event )
 				end
 			end
-			
+
 			-- Allow touch events to be sent normally to the objects they "hit"
 			display.getCurrentStage():setFocus( self, nil )
 			self.isFocus = false
@@ -151,24 +143,19 @@ end
 --  
 function newSlider( params )
 	local slider
-	
+
 	slider = display.newGroup()
 
 
     function slider:getValue()
-        if (self.isInteger) then
-            if (self.isBoolean) then
-
-                if (self.value == 0) then
-                    print("boolean false")
-                    return false
-                else
-                    print("boolean true")
-                    return true
-                end
+        if (self.isBoolean) then
+            if (self.value == 0) then
+                return false
             else
-                return math.floor(self.value)
+                return true
             end
+        elseif (self.isInteger) then
+            return math.floor(self.value)
         else
             return tonumber(string.format("%.3f", self.value))
         end
@@ -178,18 +165,18 @@ function newSlider( params )
 		slider.track = display.newImage( params.track )
 		slider:insert( slider.track, true )
 	end
-	
+
 	if params.thumbDefault then
 		slider.thumbDefault = display.newImage( params.thumbDefault )
 		slider:insert( slider.thumbDefault, true )
 	end
-	
+
 	if params.thumbOver then
 		slider.thumbOver = display.newImage( params.thumbOver )
 		slider.thumbOver.isVisible = false
 		slider:insert( slider.thumbOver, true )
 	end
-	
+
 	if ( params.maxValue ~= nil ) then
 		slider.maxValue = params.maxValue
 	else
@@ -202,7 +189,7 @@ function newSlider( params )
 	end
 
 	slider.range = slider.maxValue - slider.minValue
-	
+
 	if ( params.value ~= nil ) then
 		slider.value = params.value
 	else
@@ -223,7 +210,7 @@ function newSlider( params )
 	end
 	if ( params.onRelease and ( type(params.onRelease) == "function" ) ) then
 		slider._onRelease = params.onRelease
-	end	
+	end
 	if (params.onEvent and ( type(params.onEvent) == "function" ) ) then
 		slider._onEvent = params.onEvent
     end
@@ -232,24 +219,34 @@ function newSlider( params )
     else
         slider.isBoolean = false
     end
-		
+
 	-- calculate thumb extents
 	local trackBounds = slider.track.stageBounds
 	local thumbBounds = slider.thumbDefault.stageBounds
+    local tempVal
+    if (type(slider.value) == "boolean") then
+        if (slider.value) then
+            tempVal = 1
+        else
+            tempVal = 0
+        end
+    else
+        tempVal = slider.value
+    end
+
 	if slider.isVertical then
 		slider.thumbMin = trackBounds.yMin - thumbBounds.yMin
 		slider.thumbMax = trackBounds.yMax - thumbBounds.yMax
 
         if (slider.value ~= nil) then
-            slider.thumbDefault.y = (slider.thumbMax - slider.thumbMin) * ((slider.value - slider.minValue) / slider.range) + slider.thumbMin
+            slider.thumbDefault.y = (slider.thumbMax - slider.thumbMin) * ((tempVal - slider.minValue) / slider.range) + slider.thumbMin
             slider.thumbOver.y = slider.thumbDefault.y
         end
 	else
---		print( slider.thumbDefault.x .. " " .. thumbBounds.xMin .. " " .. trackBounds.xMin .. " " .. trackBounds.xMax .. " " .. thumbBounds.xMax .. " " .. slider.thumbDefault.x )
 		slider.thumbMin = trackBounds.xMin - thumbBounds.xMin
 		slider.thumbMax = trackBounds.xMax - thumbBounds.xMax
         if (slider.value ~= nil) then
-            slider.thumbDefault.x = (slider.thumbMax - slider.thumbMin) * ((slider.value - slider.minValue) / slider.range) + slider.thumbMin
+            slider.thumbDefault.x = (slider.thumbMax - slider.thumbMin) * ((tempVal - slider.minValue) / slider.range) + slider.thumbMin
             slider.thumbOver.x = slider.thumbDefault.x
         end
 	end
@@ -261,11 +258,11 @@ function newSlider( params )
 	if params.x then
 		slider.x = params.x
 	end
-	
+
 	if params.y then
 		slider.y = params.y
 	end
-	
+
 	if params.id then
 		slider._id = params.id
 	end
