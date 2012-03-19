@@ -36,7 +36,7 @@ function scene:enterScene( event )
 
     bg:setFillColor( BackgroundColor[1], BackgroundColor[2], BackgroundColor[3] )
 
-    Particles.CreateEmitter("E1", 384, 512, Sliders[30].slider:getValue(), true, true)
+    Particles.CreateEmitter("E1", 384, 512, Sliders[31].slider:getValue(), true, true)
 
 
     group:insert(Particles.GetEmitter("E1"))
@@ -66,9 +66,10 @@ function scene:enterScene( event )
     ParticleProps.scaleMax = Sliders[20].slider:getValue()
     ParticleProps.scaleOutDelay = Sliders[21].slider:getValue()
     ParticleProps.scaleOutSpeed = Sliders[22].slider:getValue()
-    ParticleProps.colorStart = {Sliders[23].slider:getValue(),Sliders[24].slider:getValue(),Sliders[25].slider:getValue()}
-    ParticleProps.colorChange = {Sliders[26].slider:getValue(),Sliders[27].slider:getValue(),Sliders[28].slider:getValue()}
-
+    if (Sliders[23].slider:getValue()) then
+        ParticleProps.colorStart = {Sliders[24].slider:getValue(),Sliders[25].slider:getValue(),Sliders[26].slider:getValue()}
+        ParticleProps.colorChange = {Sliders[27].slider:getValue(),Sliders[28].slider:getValue(),Sliders[29].slider:getValue()}
+    end
     ParticleProps.imagePath = ParticleImage.name
     ParticleProps.imageWidth = ParticleImage.width
     ParticleProps.imageHeight = ParticleImage.height
@@ -79,7 +80,7 @@ function scene:enterScene( event )
     Particles.CreateParticleType (name, ParticleProps)
 
     -- FEED EMITTERS (EMITTER NAME, PARTICLE TYPE NAME, EMISSION RATE, DURATION, DELAY)
-    Particles.AttachParticleType("E1", name, Sliders[29].slider:getValue(), 99999,0)
+    Particles.AttachParticleType("E1", name, Sliders[30].slider:getValue(), 99999,0)
 
 
 

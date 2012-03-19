@@ -80,15 +80,13 @@ local function newSliderHandler( self, event )
 		end
 
         if (self.isInteger) then
-            if (self.isBoolean) then
+	        sliderEvent.value = math.floor(self.value)
+	elseif (self.isBoolean) then
                 if (self.value == 0) then
                     sliderEvent.value = false
                 else
                     sliderEvent.value = true
                 end
-            else
-		        sliderEvent.value = math.floor(self.value)
-            end
         else
             sliderEvent.value = tonumber(string.format("%.3f", self.value))
         end

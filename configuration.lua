@@ -42,6 +42,7 @@ DefaultProperties.scaleInSpeed=0
 DefaultProperties.scaleMax=1
 DefaultProperties.scaleOutDelay=0
 DefaultProperties.scaleOutSpeed=0
+DefaultProperties.colorModification=0
 DefaultProperties.colorStartR=0
 DefaultProperties.colorStartG=0
 DefaultProperties.colorStartB=0

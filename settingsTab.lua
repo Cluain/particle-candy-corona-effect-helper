@@ -91,7 +91,7 @@ function scene:createScene(event)
             mySlider.x = sliderX
             mySlider.y = sliderY
 
-            sliderY = sliderY + 31
+            sliderY = sliderY + 30
 
             group:insert(nameLbl)
             group:insert(valueLbl)

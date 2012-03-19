@@ -58,14 +58,15 @@ Properties[19] = { name = "scaleInSpeed", min = 0, max = 2,  default = DefaultPr
 Properties[20] = { name = "scaleMax", min = 0, max = 10,  default = DefaultProperties.scaleMax, isInteger = false}
 Properties[21] = { name = "scaleOutDelay", min = 0, max = 5000,  default = DefaultProperties.scaleOutDelay, isInteger = true}
 Properties[22] = { name = "scaleOutSpeed", min = -1, max = 0,  default = DefaultProperties.scaleOutSpeed, isInteger = false}
-Properties[23] = { name = "colorStartR", min = 0, max = 255,  default = DefaultProperties.colorStartR, isInteger = true}
-Properties[24] = { name = "colorStartG", min = 0, max = 255,  default = DefaultProperties.colorStartG, isInteger = true}
-Properties[25] = { name = "colorStartB", min = 0, max = 255,  default = DefaultProperties.colorStartB, isInteger = true}
-Properties[26] = { name = "colorChangeR", min = -255, max = 255,  default = DefaultProperties.colorChangeR, isInteger = true}
-Properties[27] = { name = "colorChangeG", min = -255, max = 255,  default = DefaultProperties.colorChangeG, isInteger = true}
-Properties[28] = { name = "colorChangeB", min = -255, max = 255,  default = DefaultProperties.colorChangeB, isInteger = true }
-Properties[29] = { name = "emissionRate", min = 1, max = 30,  default = DefaultProperties.emissionRate, isInteger = true }
-Properties[30] = { name = "emissionAngle", min = 0, max = 359,  default = DefaultProperties.emissionAngle, isInteger = true }
+Properties[23] = { name = "colorModification", min = 0, max = 1,  default = DefaultProperties.colorModification, isBoolean = true}
+Properties[24] = { name = "colorStartR", min = 0, max = 255,  default = DefaultProperties.colorStartR, isInteger = true}
+Properties[25] = { name = "colorStartG", min = 0, max = 255,  default = DefaultProperties.colorStartG, isInteger = true}
+Properties[26] = { name = "colorStartB", min = 0, max = 255,  default = DefaultProperties.colorStartB, isInteger = true}
+Properties[27] = { name = "colorChangeR", min = -255, max = 255,  default = DefaultProperties.colorChangeR, isInteger = true}
+Properties[28] = { name = "colorChangeG", min = -255, max = 255,  default = DefaultProperties.colorChangeG, isInteger = true}
+Properties[29] = { name = "colorChangeB", min = -255, max = 255,  default = DefaultProperties.colorChangeB, isInteger = true }
+Properties[30] = { name = "emissionRate", min = 1, max = 30,  default = DefaultProperties.emissionRate, isInteger = true }
+Properties[31] = { name = "emissionAngle", min = 0, max = 359,  default = DefaultProperties.emissionAngle, isInteger = true }
 
 Sliders = {}
 
