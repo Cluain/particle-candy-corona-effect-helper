@@ -110,7 +110,13 @@ end
 
 -- Called when scene is about to move offscreen:
 function scene:exitScene( event )
+    print(" ")
+    print(" ")
+    print("---- CURRENT BACKGROUND CONFIGURATION START ----")
     print("BackgroundColor = { "..BackgroundColor[1]..", "..BackgroundColor[2]..", "..BackgroundColor[3].." }")
+    print("---- CURRENT BACKGROUND CONFIGURATION END ----")
+    print(" ")
+    print(" ")
 end
 
 -- If scene's view is removed, scene:destroyScene() will be called just prior to:

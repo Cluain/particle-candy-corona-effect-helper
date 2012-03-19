@@ -115,13 +115,16 @@ end
 -- Called when scene is about to move offscreen:
 function scene:exitScene(event)
     local group = self.view
-
-    for i=1,30 do
+    print(" ")
+    print(" ")
+    print("---- CURRENT CONFIGURATION START ----")
+    for i=1,31 do
         print("DefaultProperties."..Properties[i].name.."="..tostring(Sliders[i].slider:getValue()))
-
     end
-
-
+    print("---- CURRENT CONFIGURATION END ----")
+    print(" ")
+    print(" ")
+    
 end
 
 -- If scene's view is removed, scene:destroyScene() will be called just prior to:
