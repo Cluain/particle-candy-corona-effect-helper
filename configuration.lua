@@ -13,6 +13,8 @@
 
 -- Background color behind emitter:
 BackgroundColor = {255, 0, 255 }
+BackgroundImage = "test-bg.png"
+BackgroundImageEnabled = false
 
 -- Particle Image info
 ParticleImage.name = "test.png"
@@ -42,7 +44,6 @@ DefaultProperties.scaleInSpeed=0
 DefaultProperties.scaleMax=1
 DefaultProperties.scaleOutDelay=0
 DefaultProperties.scaleOutSpeed=0
-DefaultProperties.colorModification=0
 DefaultProperties.colorStartR=0
 DefaultProperties.colorStartG=0
 DefaultProperties.colorStartB=0
@@ -51,3 +52,4 @@ DefaultProperties.colorChangeG=0
 DefaultProperties.colorChangeB=0
 DefaultProperties.emissionRate=5
 DefaultProperties.emissionAngle=90
+DefaultProperties.colorModification=0

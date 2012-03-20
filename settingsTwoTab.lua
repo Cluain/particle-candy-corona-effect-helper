@@ -4,7 +4,7 @@
 --
 -----------------------------------------------------------------------------------------
 
-local storyboard = require( "storyboard" )
+local storyboard = require("storyboard")
 local scene = storyboard.newScene()
 local slider = require("slider")
 
@@ -13,15 +13,15 @@ local slider = require("slider")
 -- BEGINNING OF YOUR IMPLEMENTATION
 --
 -- NOTE: Code outside of listener functions (below) will only be executed once,
---		 unless storyboard.removeScene() is called.
+-- unless storyboard.removeScene() is called.
 --
 -----------------------------------------------------------------------------------------
 
 -- Called when the scene's view does not exist:
-function scene:createScene( event )
+function scene:createScene(event)
     local group = self.view
-    local bg = display.newRect( 0, 0, display.contentWidth, display.contentHeight )
-    bg:setFillColor( 255 )	-- white
+    local bg = display.newRect(0, 0, display.contentWidth, display.contentHeight)
+    bg:setFillColor(255) -- white
     group:insert(bg)
 
 
@@ -30,9 +30,10 @@ function scene:createScene( event )
         -- update all the sliders
         if "moved" == phase then
             BackgroundSliders[event.id].valueLbl.text = tostring(event.value)
-            for i=1,3 do
+            for i = 1, 3 do
                 BackgroundColor[i] = BackgroundSliders[i].slider:getValue()
             end
+            BackgroundImageEnabled = BackgroundSliders[4].slider:getValue()
         end
 
         return true
@@ -59,11 +60,7 @@ function scene:createScene( event )
 
             local valueTxt
             if (item.isBoolean) then
-                if (item.default == 0) then
-                    valueTxt = tostring(false)
-                else
-                    valueTxt = tostring(true)
-                end
+                valueTxt = tostring(item.default)
             else
                 valueTxt = tostring(item.default)
             end
@@ -99,32 +96,28 @@ function scene:createScene( event )
     end
 
     createSliders()
-
 end
 
 -- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )
-
-
+function scene:enterScene(event)
 end
 
 -- Called when scene is about to move offscreen:
-function scene:exitScene( event )
+function scene:exitScene(event)
     print(" ")
     print(" ")
     print("---- CURRENT BACKGROUND CONFIGURATION START ----")
-    print("BackgroundColor = { "..BackgroundColor[1]..", "..BackgroundColor[2]..", "..BackgroundColor[3].." }")
+    print("BackgroundColor = { " .. BackgroundColor[1] .. ", " .. BackgroundColor[2] .. ", " .. BackgroundColor[3] .. " }")
     print("---- CURRENT BACKGROUND CONFIGURATION END ----")
     print(" ")
     print(" ")
 end
 
 -- If scene's view is removed, scene:destroyScene() will be called just prior to:
-function scene:destroyScene( event )
+function scene:destroyScene(event)
     local group = self.view
 
     -- INSERT code here (e.g. remove listeners, remove widgets, save state variables, etc.)
-
 end
 
 -----------------------------------------------------------------------------------------
@@ -132,18 +125,18 @@ end
 -----------------------------------------------------------------------------------------
 
 -- "createScene" event is dispatched if scene's view does not exist
-scene:addEventListener( "createScene", scene )
+scene:addEventListener("createScene", scene)
 
 -- "enterScene" event is dispatched whenever scene transition has finished
-scene:addEventListener( "enterScene", scene )
+scene:addEventListener("enterScene", scene)
 
 -- "exitScene" event is dispatched whenever before next scene's transition begins
-scene:addEventListener( "exitScene", scene )
+scene:addEventListener("exitScene", scene)
 
 -- "destroyScene" event is dispatched before view is unloaded, which can be
 -- automatically unloaded in low memory situations, or explicitly via a call to
 -- storyboard.purgeScene() or storyboard.removeScene().
-scene:addEventListener( "destroyScene", scene )
+scene:addEventListener("destroyScene", scene)
 
 -----------------------------------------------------------------------------------------
 

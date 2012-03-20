@@ -34,6 +34,7 @@ require("configuration")
 BackgroundProperties[1] = { name = "backgroundR", min = 0, max = 255, default = BackgroundColor[1], isInteger = true}
 BackgroundProperties[2] = { name = "backgroundG", min = 0, max = 255, default = BackgroundColor[2], isInteger = true}
 BackgroundProperties[3] = { name = "backgroundB", min = 0, max = 255, default = BackgroundColor[3], isInteger = true }
+BackgroundProperties[4] = { name = "useBackgroundImg", min = 0, max = 1, default = BackgroundImageEnabled, isBoolean = true }
 
 Properties = {}
 Properties[1] = {name = "lifeTime", min = 100, max = 10000, default = DefaultProperties.lifeTime, isInteger = true}

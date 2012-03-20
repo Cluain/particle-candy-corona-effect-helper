@@ -4,7 +4,7 @@
 --
 -----------------------------------------------------------------------------------------
 
-local storyboard = require( "storyboard" )
+local storyboard = require("storyboard")
 local scene = storyboard.newScene()
 local Particles = require("lib_particle_candy")
 
@@ -12,29 +12,38 @@ local Particles = require("lib_particle_candy")
 -- BEGINNING OF YOUR IMPLEMENTATION
 --
 -- NOTE: Code outside of listener functions (below) will only be executed once,
---		 unless storyboard.removeScene() is called.
+-- unless storyboard.removeScene() is called.
 --
 -----------------------------------------------------------------------------------------
 
 local bg
 
 -- Called when the scene's view does not exist:
-function scene:createScene( event )
+function scene:createScene(event)
     local group = self.view
-    bg = display.newRect( 0, 0, display.contentWidth, display.contentHeight )
-    bg:setFillColor( BackgroundColor[1], BackgroundColor[2], BackgroundColor[3] )
-    group:insert(bg)
-
-
-
-
 end
 
 -- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )
+function scene:enterScene(event)
     local group = self.view
 
-    bg:setFillColor( BackgroundColor[1], BackgroundColor[2], BackgroundColor[3] )
+
+    if BackgroundImageEnabled then
+
+        bg = display.newImage(BackgroundImage)
+
+    else
+
+        bg = display.newRect(0, 0, display.contentWidth, display.contentHeight)
+        bg:setFillColor(BackgroundColor[1], BackgroundColor[2], BackgroundColor[3])
+    end
+    group:insert(bg)
+
+    ParticleCount = display.newText("PARTICLES: 00", 30, 30, native.systemFont, 20)
+    ParticleCount:setTextColor(255, 255, 255)
+    ParticleCount:setReferencePoint(display.CenterLeftReferencePoint);
+    group:insert(ParticleCount)
+    ParticleCount:toFront()
 
     Particles.CreateEmitter("E1", 384, 512, Sliders[31].slider:getValue(), true, true)
 
@@ -67,20 +76,20 @@ function scene:enterScene( event )
     ParticleProps.scaleOutDelay = Sliders[21].slider:getValue()
     ParticleProps.scaleOutSpeed = Sliders[22].slider:getValue()
     if (Sliders[23].slider:getValue()) then
-        ParticleProps.colorStart = {Sliders[24].slider:getValue(),Sliders[25].slider:getValue(),Sliders[26].slider:getValue()}
-        ParticleProps.colorChange = {Sliders[27].slider:getValue(),Sliders[28].slider:getValue(),Sliders[29].slider:getValue()}
+        ParticleProps.colorStart = { Sliders[24].slider:getValue(), Sliders[25].slider:getValue(), Sliders[26].slider:getValue() }
+        ParticleProps.colorChange = { Sliders[27].slider:getValue(), Sliders[28].slider:getValue(), Sliders[29].slider:getValue() }
     end
     ParticleProps.imagePath = ParticleImage.name
     ParticleProps.imageWidth = ParticleImage.width
     ParticleProps.imageHeight = ParticleImage.height
-    ParticleProps.killOutsideScreen	= true
+    ParticleProps.killOutsideScreen = true
 
     local name = tostring(ParticleProps)
 
-    Particles.CreateParticleType (name, ParticleProps)
+    Particles.CreateParticleType(name, ParticleProps)
 
     -- FEED EMITTERS (EMITTER NAME, PARTICLE TYPE NAME, EMISSION RATE, DURATION, DELAY)
-    Particles.AttachParticleType("E1", name, Sliders[30].slider:getValue(), 99999,0)
+    Particles.AttachParticleType("E1", name, Sliders[30].slider:getValue(), 99999, 0)
 
 
 
@@ -89,26 +98,33 @@ function scene:enterScene( event )
 
     Particles.StartAutoUpdate();
 
-
+    Runtime:addEventListener("enterFrame", particleCount)
 end
 
 -- Called when scene is about to move offscreen:
-function scene:exitScene( event )
+function scene:exitScene(event)
     local group = self.view
 
     Particles.StopAutoUpdate()
     Particles.StopEmitter("E1")
     Particles.CleanUp()
-
-
+    Runtime:removeEventListener("enterFrame", particleCount)
+    ParticleCount:removeSelf()
+    ParticleCount = nil
+    bg:removeSelf()
+    bg = nil
 end
 
 -- If scene's view is removed, scene:destroyScene() will be called just prior to:
-function scene:destroyScene( event )
+function scene:destroyScene(event)
     local group = self.view
 
     -- INSERT code here (e.g. remove listeners, remove widgets, save state variables, etc.)
+end
 
+
+function particleCount()
+    ParticleCount.text = "PARTICLES:" .. Particles.CountParticles()
 end
 
 -----------------------------------------------------------------------------------------
@@ -116,18 +132,18 @@ end
 -----------------------------------------------------------------------------------------
 
 -- "createScene" event is dispatched if scene's view does not exist
-scene:addEventListener( "createScene", scene )
+scene:addEventListener("createScene", scene)
 
 -- "enterScene" event is dispatched whenever scene transition has finished
-scene:addEventListener( "enterScene", scene )
+scene:addEventListener("enterScene", scene)
 
 -- "exitScene" event is dispatched whenever before next scene's transition begins
-scene:addEventListener( "exitScene", scene )
+scene:addEventListener("exitScene", scene)
 
 -- "destroyScene" event is dispatched before view is unloaded, which can be
 -- automatically unloaded in low memory situations, or explicitly via a call to
 -- storyboard.purgeScene() or storyboard.removeScene().
-scene:addEventListener( "destroyScene", scene )
+scene:addEventListener("destroyScene", scene)
 
 -----------------------------------------------------------------------------------------
 
