@@ -45,7 +45,7 @@ function scene:enterScene(event)
     group:insert(ParticleCount)
     ParticleCount:toFront()
 
-    Particles.CreateEmitter("E1", 384, 512, Sliders[31].slider:getValue(), true, true)
+    Particles.CreateEmitter("E1", 384, 512, Sliders[36].slider:getValue(), true, true)
 
 
     group:insert(Particles.GetEmitter("E1"))
@@ -83,13 +83,18 @@ function scene:enterScene(event)
     ParticleProps.imageWidth = ParticleImage.width
     ParticleProps.imageHeight = ParticleImage.height
     ParticleProps.killOutsideScreen = true
+    ParticleProps.emissionShape = Sliders[30].slider:getValue()
+    ParticleProps.emissionRadius = Sliders[31].slider:getValue()
+    ParticleProps.randomMotionMode = Sliders[32].slider:getValue()
+    ParticleProps.randomMotionInterval = Sliders[33].slider:getValue()
+    ParticleProps.randomMotionAmount = Sliders[34].slider:getValue()
 
     local name = tostring(ParticleProps)
 
     Particles.CreateParticleType(name, ParticleProps)
 
     -- FEED EMITTERS (EMITTER NAME, PARTICLE TYPE NAME, EMISSION RATE, DURATION, DELAY)
-    Particles.AttachParticleType("E1", name, Sliders[30].slider:getValue(), 99999, 0)
+    Particles.AttachParticleType("E1", name, Sliders[35].slider:getValue(), 99999, 0)
 
 
 
