@@ -1,4 +1,4 @@
-ver 0.2
+ver 0.5a
 
 # Installation
 
@@ -8,7 +8,7 @@ ver 0.2
 # Usage
 
 Use sliders in Settings tab to adjust Particle Type Properties and Emitter settings.
-You can adjust the background color on Test tab using sliders in Settings Two tab.
+You can adjust the background color of Test tab using sliders in Settings Two tab.
 Switch to tab Test to view your settings in action.
 You can adjust default settings, background settings and particle image in `configuration.lua` file.
 Every time you switch to tab Test your settings will be printed to console, in a format allowing easy copy & paste to `configuration.lua` file.
@@ -16,4 +16,9 @@ Every time you switch to tab Test your settings will be printed to console, in a
 # Limitations
 
 For now only simple Particle Type properties are adjustable. If you want something more you can raise a feature request [or pull request :) ].
+
+# More info and discussion about this code...
+
+can be found here:
+https://developer.anscamobile.com/code/particle-candy-effects-creator
 

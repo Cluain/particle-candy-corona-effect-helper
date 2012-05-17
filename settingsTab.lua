@@ -32,6 +32,7 @@ function scene:createScene(event)
         scrollWidth = 768,
         scrollHeight = 1800
     }
+    scroller.content.horizontalScrollDisabled = true
 
     -- create a white background to fill screen
     local bg = display.newRect(0, 0, display.contentWidth, display.contentHeight)
@@ -149,6 +150,7 @@ function scene:createScene(event)
                             Sliders[i].descLbl.isVisible = true
                             Sliders[i].descLbl.y = Sliders[i].nameLbl.y + 15
                         end
+
                         transition.to(Sliders[i].valueLbl, { time = 500, y = Sliders[i].valueLbl.y + slide, onComplete = showDesc })
                     end
                     timer.performWithDelay(500, function() Sliders[i].descLbl.isVisible = true end)
@@ -181,7 +183,11 @@ function scene:createScene(event)
 
     -- all objects must be added to group (e.g. self.view)
     group:insert(bg)
-    group:insert(scroller)
+    if scroller.view then -- stable build
+        group:insert(scroller.view)
+    else
+        group:insert(scroller)
+    end
     descriptionsHandler()
     createSliders(false)
 end
