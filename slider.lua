@@ -12,9 +12,6 @@ local function newSliderHandler( self, event )
 
 	local result = true
 
---	local default = self[1]
---	local over = self[2]
-
 	-- General "onEvent" function overrides onPress and onRelease, if present
 	local onEvent = self._onEvent
 
@@ -147,7 +144,7 @@ function newSlider( params )
 
     function slider:getValue()
         if (self.isBoolean) then
-            if (self.value == 0) then
+            if not self.value or self.value == 0 then
                 return false
             else
                 return true

@@ -70,7 +70,7 @@ function scene:createScene(event)
 
             local valueTxt
             if (item.isBoolean) then
-                if (item.default == 0) then
+                if not item.default or item.default == 0 then
                     valueTxt = tostring(false)
                 else
                     valueTxt = tostring(true)
@@ -87,12 +87,6 @@ function scene:createScene(event)
             local descLbl = display.newRetinaText(item.desc, nameLblX, sliderY + 30, 800, 72, native.systemFont, 20)
             descLbl:setTextColor(128) -- black
             descLbl:setReferencePoint(display.TopLeftReferencePoint)
-            --            descLbl.x = nameLblX
-            --            if i == 1 then
-            --            descLbl.y = sliderY + 40 * i
-            --            else
-            --                descLbl.y = sliderY + 55 * i
-            --            end
             descLbl.isVisible = false
 
 
